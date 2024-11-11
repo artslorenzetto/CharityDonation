@@ -1,7 +1,7 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-    // Connect to the Besu network (or local Hardhat network)
+    // Connect to the Besu network (local Hardhat network)
     const [deployer, donor] = await ethers.getSigners(); 
 
     // Address of the deployed contract
@@ -77,10 +77,12 @@ async function main() {
     console.log("============== WITHDRAW ==================");
     // Manager withdraws funds for both causes
     console.log("Manager withdrawing funds for Cause 1...");
-    await charityDonation.connect(deployer).withdrawFunds(1);
+    const withdrawTx1 = await charityDonation.connect(deployer).withdrawFunds(1);
+    await withdrawTx1.wait();
 
     console.log("Manager withdrawing funds for Cause 2...");
-    await charityDonation.connect(deployer).withdrawFunds(2);
+    const withdrawTx2 = await charityDonation.connect(deployer).withdrawFunds(2);
+    await withdrawTx2.wait();
 
     // Checking total donations after withdrawal
     totalDonationsCause1 = await charityDonation.getCauseDonations(1);

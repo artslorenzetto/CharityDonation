@@ -5,8 +5,8 @@ contract CharityDonation {
     struct Cause {
         uint256 id;
         string name;
-        string description;  // Added description for the cause
-        uint256 totalDonations; // Represented in fictional units (e.g., 10 units)
+        string description; 
+        uint256 totalDonations;
         address manager;
     }
 
@@ -58,10 +58,9 @@ contract CharityDonation {
     // Withdraw funds for a cause manager (fictional units)
     function withdrawFunds(uint256 causeId) public onlyManager(causeId) {
         uint256 amount = causes[causeId].totalDonations;
-        require(amount > 0, "No funds available to withdraw");
+        require(amount > 0, "No funds available to wsithdraw");
 
         causes[causeId].totalDonations = 0;
-        //payable(msg.sender).transfer(amount); // You can replace this with a simulated action if no real transfers
 
         emit FundsWithdrawn(msg.sender, amount);
     }
